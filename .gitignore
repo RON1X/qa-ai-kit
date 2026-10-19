@@ -1,0 +1,19 @@
+# Сборка и результаты прогонов
+target/
+allure-results/
+allure-report/
+
+# Сохранённая сессия браузера (содержит куки) и трассы
+.auth/
+*.trace.zip
+
+# Локальные настройки и секреты
+.qwen/settings.json
+.env
+*.env
+
+# IDE и ОС
+.idea/
+*.iml
+.vscode/
+.DS_Store
