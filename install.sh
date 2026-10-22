@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Устанавливает набор для ИИ-агента (02-agent-kit) в репозиторий автотестов.
+# Устанавливает инструкции для ИИ-агента (папка instructions/) в репозиторий автотестов.
 #
 # Первая установка:   ./install.sh <путь-к-репозиторию-автотестов>
 #   Копирует всё, чего ещё нет. Существующие файлы не трогает.
@@ -10,7 +10,7 @@
 #   Если вы правили скилл под себя — перед --update посмотрите diff, правки будут перезаписаны.
 set -euo pipefail
 
-SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/02-agent-kit"
+SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/instructions"
 TARGET="${1:?Укажите путь к репозиторию автотестов: ./install.sh ../my-autotests [--update]}"
 MODE="${2:-}"
 
@@ -18,10 +18,10 @@ MODE="${2:-}"
 [[ -z "$MODE" || "$MODE" == "--update" ]] || { echo "❌ Неизвестный флаг $MODE (есть только --update)"; exit 1; }
 TARGET="$(cd "$TARGET" && pwd)"
 
-# Не копируем: инструкцию по установке (она для человека) и пример оглавления (генерируется под проект).
+# Не копируем: то, что читает человек (README, guides/, chat/), и пример оглавления (генерируется под проект).
 is_excluded() {
   case "$1" in
-    README.md|docs/framework-index.md) return 0 ;;
+    README.md|docs/framework-index.md|guides/*|chat/*) return 0 ;;
     *) return 1 ;;
   esac
 }
@@ -29,7 +29,7 @@ is_excluded() {
 # Библиотечные файлы — их обновляет --update.
 is_library() {
   case "$1" in
-    .qwen/skills/*|.qwen/commands/*|.qwen/agents/*|scripts/*) return 0 ;;
+    .qwen/skills/*|.qwen/commands/*|.qwen/agents/*|.qwen/output-styles/*|scripts/*) return 0 ;;
     *) return 1 ;;
   esac
 }
@@ -66,5 +66,5 @@ if [[ ${#added[@]} -gt 0 && -f "$TARGET/AGENTS.md" ]]; then
   echo "  1. cp .qwen/settings.example.json .qwen/settings.json и впишите адрес и id моделей"
   echo "  2. grep -rn 'ЗАПОЛНИТЬ' AGENTS.md docs .qwen   — заполнить под свой проект"
   echo "  3. scripts/index-framework.sh > docs/framework-index.md"
-  echo "  Подробно: README.md и 01-plan/implementation-plan.md в репозитории qa-ai-kit"
+  echo "  Подробно: instructions/README.md в репозитории qa-ai-kit"
 fi

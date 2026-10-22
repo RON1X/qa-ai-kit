@@ -1,0 +1,87 @@
+{
+  "modelProviders": {
+    "openai": [
+      {
+        "id": "deepseek-flash",
+        "name": "DeepSeek V4.1 Flash (внутренний)",
+        "envKey": "INTERNAL_LLM_API_KEY",
+        "baseUrl": "https://llm.internal.example/v1",
+        "generationConfig": {
+          "timeout": 600000,
+          "maxRetries": 1,
+          "contextWindowSize": 262144,
+          "samplingParams": {
+            "temperature": 1.0,
+            "top_p": 0.95,
+            "max_tokens": 65536
+          },
+          "extra_body": {
+            "reasoning_effort": "high"
+          }
+        }
+      },
+      {
+        "id": "glm-5.3-flash",
+        "name": "GLM-5.3-Flash (внутренний)",
+        "envKey": "INTERNAL_LLM_API_KEY",
+        "baseUrl": "https://llm.internal.example/v1",
+        "generationConfig": {
+          "timeout": 600000,
+          "maxRetries": 1,
+          "contextWindowSize": 262144,
+          "samplingParams": {
+            "temperature": 1.0,
+            "top_p": 0.95,
+            "max_tokens": 65536
+          },
+          "extra_body": {
+            "reasoning_effort": "high",
+            "chat_template_kwargs": {
+              "clear_thinking": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "openai"
+    }
+  },
+  "model": {
+    "name": "deepseek-flash"
+  },
+  "context": {
+    "fileName": [
+      "AGENTS.md",
+      "QWEN.md"
+    ]
+  },
+  "tools": {
+    "approvalMode": "default"
+  },
+  "general": {
+    "enableAutoUpdate": false,
+    "outputStyle": "brief"
+  },
+  "privacy": {
+    "usageStatisticsEnabled": false
+  },
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp",
+        "--headless",
+        "--isolated",
+        "--test-id-attribute=data-qa",
+        "--codegen=java",
+        "--caps=testing,network",
+        "--storage-state=target/.auth/admin.json",
+        "--ignore-https-errors",
+        "--output-dir=target/mcp"
+      ]
+    }
+  }
+}
