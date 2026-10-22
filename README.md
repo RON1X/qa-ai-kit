@@ -8,10 +8,11 @@
 | Папка | Для кого | Что |
 |---|---|---|
 | `instructions/` | модель | **то, что копируется в проект**: `AGENTS.md`, 10 скиллов, стили ответа, команды, субагент-ревьюер, шаблоны docs, скрипты; плюс `guides/` и `chat/` для вас |
+| `agent/` | модель | пример единого агента поверх `instructions/`: роль и сценарии (`QWEN.md`), одобрение плана настройкой, 4 субагента (explorer, test-writer, test-reviewer, failure-analyst), модели по ролям, 12 контрольных задач |
 | `examples/` | вы и модель | эталонный каркас под стек: Owner-конфиг, Playwright-расширения, API-клиент на Jackson + Lombok, JDBC-клиент, мок-слой, Page Object с компонентами, эталонные UI- и API-тесты |
 | `research/` | вы | ресерч и план внедрения: Superpowers, кейсы компаний, Playwright, БД, моки, Qwen Code, DeepSeek/GLM, SDD и спеки, как писать инструкции, стиль ответа, метрики |
 
-С чего начать: `research/00-implementation-plan.md` → `instructions/README.md` → `examples/`.
+С чего начать: `research/00-implementation-plan.md` → `instructions/README.md` → `agent/README.md` → `examples/`.
 
 ## Как подтянуть на работе
 ```bash
